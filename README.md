@@ -1,10 +1,23 @@
 # Microsoft BitLocker
 
-[Microsoft BitLocker](https://technet.microsoft.com/en-us/library/cc731549.aspx) is a full volume encryption feature built into Windows. BitLocker is intended to protect data on devices that have been lost or stolen. BitLocker is available in the Ultimate and Enterprise editions of Windows Vista and Windows 7 and in the Professional and Enterprise editions of Windows 8 and later. A [Group Policy Object](./Group Policy Objects/Computer/) for BitLocker is included in the SHB. The Group Policy Object contains recommended security settings for BitLocker on Windows 10 Version 1511 and later.
 
-[NIST](http://www.nist.gov/) [FIPS 140-2](http://csrc.nist.gov/groups/STM/cmvp/index.html) validation of Windows 10 BitLocker modules was completed on June 2, 2016 as evidenced in certificate numbers [2601](http://csrc.nist.gov/groups/STM/cmvp/documents/140-1/140val-all.htm#2601), [2602](http://csrc.nist.gov/groups/STM/cmvp/documents/140-1/140val-all.htm#2602), and [2603](http://csrc.nist.gov/groups/STM/cmvp/documents/140-1/140val-all.htm#2603).
+## About Microsoft BitLocker 
+[Microsoft BitLocker](https://technet.microsoft.com/en-us/library/cc731549.aspx) is a full volume encryption feature built into Windows. BitLocker is intended to protect data on devices that have been lost or stolen. BitLocker is available in the Ultimate and Enterprise editions of Windows Vista and Windows 7 and in the Professional and Enterprise editions of Windows 8 and later.
+
+The Windows 10 BitLocker modules have been [validated](https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules) against [NIST](http://www.nist.gov/) [FIPS 140-2](https://csrc.nist.gov/projects/cryptographic-module-validation-program) [validation] multiple times:
+
+* June 2, 2016 certificate numbers [2601](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/2601), [2602](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/2602), and [2603](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/2603).
+* August 26, 2016 certificate numbers https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/2701, [2702](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/2702), [2703](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/2703)
+* January 26, 2017 certificate numbers [2932](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/2932), [2933](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/2933), and [2934](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/2934)
+
+## About this repository
+This repository hosts Group Policy objects, compliance checks, and configuration tools in support of implementing BitLocker.
+
+A [Group Policy Object](./Group%20Policy%20Objects/Computer/) for BitLocker is provided in this repository. The Group Policy Object contains recommended security settings for BitLocker on Windows 10 Version 1511 and later.
 
 A [BitLocker PowerShell module](./Scripts) has been provided to aid in provisioning BitLocker. [Microsoft BitLocker Administration and Monitoring](https://technet.microsoft.com/en-us/windows/hh826072.aspx) is another option for provisioning BitLocker.
+
+https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules/search
 
 ## Importing the BitLocker Group Policy
 
