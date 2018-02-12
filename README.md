@@ -3,7 +3,7 @@
 ## About Microsoft BitLocker 
 [Microsoft BitLocker](https://docs.microsoft.com/en-us/windows/security/information-protection/bitlocker/bitlocker-overview) is a full volume encryption feature built into Windows. BitLocker is intended to protect data on devices that have been lost or stolen. BitLocker is available in the Ultimate and Enterprise editions of Windows Vista and Windows 7, in the Professional and Enterprise editions of Windows 8/8.1, and in the Pro, Enterprise, and Education editions of Windows 10. BitLocker is also included in the Windows Server releases of Windows since Window Server 2008.
 
-The Windows 10 BitLocker modules have been [validated](https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules) against [NIST](http://www.nist.gov/) [FIPS 140-2](https://csrc.nist.gov/projects/cryptographic-module-validation-program) [validation] multiple times:
+The Windows 10 BitLocker modules have been [validated](https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules) against [NIST](http://www.nist.gov/) [FIPS 140-2](https://csrc.nist.gov/projects/cryptographic-module-validation-program) program multiple times:
 
 * June 2, 2016 certificate numbers [2601](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/2601), [2602](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/2602), and [2603](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/2603).
 * August 26, 2016 certificate numbers [2701](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/2701), [2702](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/2702), [2703](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/2703).
@@ -12,14 +12,26 @@ The Windows 10 BitLocker modules have been [validated](https://csrc.nist.gov/pro
 ## About this repository
 This repository hosts [Group Policy Objects](./Group%20Policy%20Objects/Computer/), compliance checks, and [configuration tools](./Scripts)  in support of implementing BitLocker.
 
-A [BitLocker PowerShell module] has been provided to aid in provisioning BitLocker on standalone systems. [Microsoft BitLocker Administration and Monitoring](https://technet.microsoft.com/en-us/windows/hh826072.aspx) can be used for provisioning BitLocker on domain joined systems.
+A [BitLocker PowerShell module] has been provided to aid in provisioning BitLocker on standalone systems. [Microsoft BitLocker Administration and Monitoring](https://technet.microsoft.com/en-us/windows/hh826072.aspx) (MBAM) can be used for [provisioning BitLocker](https://docs.microsoft.com/en-us/microsoft-desktop-optimization-pack/mbam-v25/) on domain joined systems.
 
 ## BitLocker settings
-NSA Information Assurance recommends using BitLocker settings from the Microsoft [Windows Security Baseline](https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-security-baselines) available in the [Security Compliance Toolkit](https://docs.microsoft.com/en-us/windows/security/threat-protection/security-compliance-toolkit-10).
+NSA Information Assurance recommends using BitLocker settings from the Microsoft [Windows Security Baseline](https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-security-baselines), available in the [Security Compliance Toolkit](https://docs.microsoft.com/en-us/windows/security/threat-protection/security-compliance-toolkit-10), with the following exceptions:
+
+* '''Deny write access to removable drives not protected by BitLocker''' can be set to '''Not Configured''' instead of Enabled.
+* '''Configure minimum PIN length for startup''' can be set to 6 characters or more instead of 7.
+
+Some environments may desire additional, but optional, protection provided by a BitLocker startup PIN. The following settings may be configured when this scenario is desired:
+
+
+Administrators may need to configure [BitLocker Network Unlock](https://docs.microsoft.com/en-us/windows/security/information-protection/bitlocker/bitlocker-how-to-enable-network-unlock) ensure systems apply updates without requiring a user be physically present to enter a PIN at system boot.
 
 ## BitLocker Group Policy 
 
-The Microsoft Security Compliance Toolkit contains BitLocker Group Policy Objects for each Windows 10 operating system releaese in the Windows Security Baseline.
+The Microsoft Security Compliance Toolkit contains BitLocker Group Policy Objects (GPO) for each Windows 10 operating system release's Windows Security Baseline. The GPOs can be used to configure and manage domain joined as well as standalone systems.
+
+
+If using MBAM to configure and manage BitLocker on domain joined systems, then download the [Microsoft Desktop Optimization Pack (MDOP) Group Policy templates](https://www.microsoft.com/en-us/download/confirmation.aspx?id=55531) since they contain the [MBAM Group Policy settings](https://docs.microsoft.com/en-us/microsoft-desktop-optimization-pack/mbam-v25/planning-for-mbam-25-group-policy-requirements). 
+
 
 ### Importing the BitLocker domain Group Policy
 Use the PowerShell Group Policy commands to import the BitLocker Group Policy into a domain. Run the following command on a domain controller from a PowerShell prompt running as a domain administrator. 
