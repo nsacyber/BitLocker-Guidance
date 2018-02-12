@@ -17,7 +17,12 @@ A [Group Policy Object](./Group%20Policy%20Objects/Computer/) for BitLocker is p
 
 A [BitLocker PowerShell module](./Scripts) has been provided to aid in provisioning BitLocker. [Microsoft BitLocker Administration and Monitoring](https://technet.microsoft.com/en-us/windows/hh826072.aspx) is another option for provisioning BitLocker.
 
-## Importing the BitLocker Group Policy
+## BitLocker settings
+NSA Information Assurance recommends using BitLocker settings from the Microsoft [Windows Security Baseline](https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-security-baselines) available in the [Security Compliance Toolkit](https://docs.microsoft.com/en-us/windows/security/threat-protection/security-compliance-toolkit-10).
+
+## BitLocker Group Policy 
+
+The Microsoft Security Compliance Toolkit contains BitLocker Group Policy Objects for each Windows 10 operating system releaese in the Windows Security Baseline.
 
 ### Importing the BitLocker domain Group Policy
 Use the PowerShell Group Policy commands to import the BitLocker Group Policy into a domain. Run the following command on a domain controller from a PowerShell prompt running as a domain administrator. 
