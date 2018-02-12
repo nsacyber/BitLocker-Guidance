@@ -1,8 +1,7 @@
-# Microsoft BitLocker
-
+# BitLocker Guidance
 
 ## About Microsoft BitLocker 
-[Microsoft BitLocker](https://technet.microsoft.com/en-us/library/cc731549.aspx) is a full volume encryption feature built into Windows. BitLocker is intended to protect data on devices that have been lost or stolen. BitLocker is available in the Ultimate and Enterprise editions of Windows Vista and Windows 7 and in the Professional and Enterprise editions of Windows 8 and later.
+[Microsoft BitLocker](https://docs.microsoft.com/en-us/windows/security/information-protection/bitlocker/bitlocker-overview) is a full volume encryption feature built into Windows. BitLocker is intended to protect data on devices that have been lost or stolen. BitLocker is available in the Ultimate and Enterprise editions of Windows Vista and Windows 7, in the Professional and Enterprise editions of Windows 8/8.1, and in the Pro, Enterprise, and Education editions of Windows 10. BitLocker is also included in the Windows Server releases of Windows since Window Server 2008.
 
 The Windows 10 BitLocker modules have been [validated](https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules) against [NIST](http://www.nist.gov/) [FIPS 140-2](https://csrc.nist.gov/projects/cryptographic-module-validation-program) [validation] multiple times:
 
@@ -11,11 +10,9 @@ The Windows 10 BitLocker modules have been [validated](https://csrc.nist.gov/pro
 * January 26, 2017 certificate numbers [2932](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/2932), [2933](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/2933), and [2934](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/2934).
 
 ## About this repository
-This repository hosts Group Policy objects, compliance checks, and configuration tools in support of implementing BitLocker.
+This repository hosts [Group Policy Objects](./Group%20Policy%20Objects/Computer/), compliance checks, and [configuration tools](./Scripts)  in support of implementing BitLocker.
 
-A [Group Policy Object](./Group%20Policy%20Objects/Computer/) for BitLocker is provided in this repository. The Group Policy Object contains recommended security settings for BitLocker on Windows 10 Version 1511 and later.
-
-A [BitLocker PowerShell module](./Scripts) has been provided to aid in provisioning BitLocker. [Microsoft BitLocker Administration and Monitoring](https://technet.microsoft.com/en-us/windows/hh826072.aspx) is another option for provisioning BitLocker.
+A [BitLocker PowerShell module] has been provided to aid in provisioning BitLocker on standalone systems. [Microsoft BitLocker Administration and Monitoring](https://technet.microsoft.com/en-us/windows/hh826072.aspx) can be used for provisioning BitLocker on domain joined systems.
 
 ## BitLocker settings
 NSA Information Assurance recommends using BitLocker settings from the Microsoft [Windows Security Baseline](https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-security-baselines) available in the [Security Compliance Toolkit](https://docs.microsoft.com/en-us/windows/security/threat-protection/security-compliance-toolkit-10).
