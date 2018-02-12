@@ -1,0 +1,5 @@
+<check_type: "Windows" version: "2">
+    <group_policy: "Verifies Spectre and Meltdown patches are installed and mitigations are enabled for browsers on Windows operating systems">
+
+    </group_policy>
+</check_type>
