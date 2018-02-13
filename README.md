@@ -24,7 +24,8 @@ NSA Information Assurance recommends using BitLocker settings from the Microsoft
 * Any settings that reinforce default behaviors are considered optional for configuration:
     * **Allow Secure Boot for integrity validation** policy under **Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Operating System Drives** can be set to **Enabled** *or* **Not Configured**. 
 
-    
+**[View the policies as a CSV](./policies.csv) which is easier to read than the table below and is also searchable.**
+
 | Policy Path | Policy Name | Policy State | Policy Value | Registry Path | Registry Value Name | Registry Data Value | Applicable Client | Applicable Server | Required for Applicable OS |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | 
 | Computer Configuration > System > Device Installation > Device Installation Restrictions | Prevent installation of devices that match any of these Device IDs > Prevent installation of devices that match any of these Device IDs: | Enabled | PCI\CC_0C0A | HKLM\Software\Policies\Microsoft\Windows\DeviceInstall\Restrictions | DenyDeviceIDs | 1 | Windows Vista+ | Windows Server 2008+ | Yes |
