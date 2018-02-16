@@ -1,5 +1,129 @@
 <check_type: "Windows" version: "2">
-    <group_policy: "Verifies Spectre and Meltdown patches are installed and mitigations are enabled for browsers on Windows operating systems">
+    <group_policy: "Verifies BitLocker settings">
 
+        # Check for prerequisite that PowerShell must be installed
+    
+        <custom_item> 
+            type: FILE_CHECK 
+            description: "Detects if powershell.exe exists."
+            info: "Detects if powershell.exe exists. PowerShell is required for other Nessus checks in this custom audit file as well as required for verifying Spectre and Meltdown operating system and firmware mitigations.
+            
+            Looks for:
+            %SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe
+                  "
+            value_type: POLICY_TEXT
+            value_data: "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe"
+            check_type: CHECK_EQUAL
+            file_option: MUST_EXIST
+            severity: HIGH            
+        </custom_item>
+
+        # Check for prerequisite that PowerShell version 2.0 or later must be installed
+        
+        <custom_item>
+            type: AUDIT_POWERSHELL
+            description: "Detects if PowerShell 2.0 or later is installed."
+            info: "
+                Detects if PowerShell 2.0 or later is installed.
+                
+                Executes PowerShell code:
+                
+                ([System.Version]($PSVersionTable).PSVersion.ToString().SubString(0,3)).CompareTo([System.Version]'2.0') -ge 0
+                  "
+            value_type: POLICY_TEXT
+            value_data: "True"
+            check_type: CHECK_EQUAL
+            powershell_args: "([System.Version]($PSVersionTable).PSVersion.ToString().SubString(0,3)).CompareTo([System.Version]'2.0') -ge 0"
+            ps_encoded_args: NO
+            only_show_cmd_output: NO
+            severity: HIGH
+        </custom_item>
+
+        # Check that BitLocker is not enabled yet
+
+        <if>
+            <condition type: "and">
+               <custom_item>
+                    type: AUDIT_POWERSHELL
+                    description: "Detects if BitLocker is enabled by using PowerShell"
+                    info: "
+                        The January 2018 patches must be installed for the SpeculationControl module to correctly detect the system configuration.
+
+                        If this check fails, the check the following:
+                            1. ensure the SpeculationControl module is installed
+                            2. ensure the January 2018 Windows operating system patches are installed
+                            3. ensure a firmware update has been installed
+
+                        Executes PowerShell code:
+
+                        $bitlocker = Get-WMIObject -Class 'Win32_EncryptableVolume' -Namespace 'root/CIMV2/Security/MicrosoftVolumeEncryption' -Filter "DriveLetter='$env:SystemDrive'"; $bitlocker.ProtectionStatus -eq 0
+                          "
+                    value_type: POLICY_TEXT
+                    value_data: "True"
+                    check_type: CHECK_EQUAL
+                    powershell_args: "$bitlocker = Get-WMIObject -Class 'Win32_EncryptableVolume' -Namespace 'root/CIMV2/Security/MicrosoftVolumeEncryption' -Filter "\"DriveLetter='$env:SystemDrive'\""; $bitlocker.ProtectionStatus -eq 0"
+                    ps_encoded_args: NO
+                    only_show_cmd_output: NO
+                    severity: HIGH
+                </custom_item>
+            </condition>
+            <then>
+
+                <custom_item>
+                    type: REGISTRY_SETTING
+                    description: "Detects if allowing standby state when on battery is disabled."
+                    info: "                   
+                        Detects if allowing standby state when on battery is disabled. The registry value data must be set to 0 for standby state when on battery to be disabled.
+
+                        Key: HKLM\Software\Policies\Microsoft\Power\PowerSettings\abfc2519-3608-4c2a-94ea-171b0ed546ab
+                        Value Name: DCSettingIndex
+                        Value Data: 0
+                        Value Type: DWORD
+
+                        Computer Configuration > System > Power Management > Sleep Settings	
+                        Allow standby states (S1-S3) when sleeping (on battery)
+                        Disabled                        
+                          "
+                    value_type: POLICY_DWORD
+                    value_data: 0
+                    reg_key: "HKLM\Software\Policies\Microsoft\Power\PowerSettings\abfc2519-3608-4c2a-94ea-171b0ed546ab"
+                    reg_item: "DCSettingIndex"
+                    reg_option: CAN_NOT_BE_NULL
+                    severity: HIGH
+                </custom_item>
+
+                <custom_item>
+                    type: REGISTRY_SETTING
+                    description: "Detects if allowing standby state when plugged in is disabled."
+                    info: "                   
+                        Detects if allowing standby state when plugged in is disabled. The registry value data must be set to 0 for standby state when plugged in to be disabled.
+
+                        Key: HKLM\Software\Policies\Microsoft\Power\PowerSettings\abfc2519-3608-4c2a-94ea-171b0ed546ab
+                        Value Name: ACSettingIndex
+                        Value Data: 0
+                        Value Type: DWORD
+
+                        Computer Configuration > System > Power Management > Sleep Settings	
+                        Allow standby states (S1-S3) when sleeping (plugged in)
+                        Disabled                        
+                          "
+                    value_type: POLICY_DWORD
+                    value_data: 0
+                    reg_key: "HKLM\Software\Policies\Microsoft\Power\PowerSettings\abfc2519-3608-4c2a-94ea-171b0ed546ab"
+                    reg_item: "DCSettingIndex"
+                    reg_option: CAN_NOT_BE_NULL
+                    severity: HIGH
+                </custom_item>
+
+            </then>
+            <else>
+                <report type: "PASSED">
+                    description: "BitLocker not enabled."
+                    info: "BitLocker not enabled
+                          "
+                </report>
+            </else>
+        </if>    
+    
     </group_policy>
 </check_type>
