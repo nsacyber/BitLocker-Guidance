@@ -10,7 +10,7 @@ The Windows 10 BitLocker modules have been [validated](https://csrc.nist.gov/pro
 * January 26, 2017 certificate numbers [2932](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/2932), [2933](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/2933), and [2934](https://csrc.nist.gov/projects/cryptographic-module-validation-program/Certificate/2934).
 
 ## About this repository
-This repository hosts [Group Policy Objects](./Group%20Policy%20Objects/Computer/), [compliance checks](./Compliance), and [configuration tools](./Scripts)  in support of implementing BitLocker.
+This repository hosts [Group Policy Objects](./Group%20Policy%20Objects/Computer/), [compliance checks](./Compliance), and [configuration tools](./Scripts) in support of implementing BitLocker.
 
 A BitLocker PowerShell module has been provided to aid in provisioning BitLocker on standalone systems. [Microsoft BitLocker Administration and Monitoring](https://technet.microsoft.com/en-us/windows/hh826072.aspx) (MBAM) can be used for [provisioning BitLocker](https://docs.microsoft.com/en-us/microsoft-desktop-optimization-pack/mbam-v25/) on domain joined systems.
 
@@ -23,7 +23,9 @@ NSA Information Assurance recommends using BitLocker settings from the Microsoft
 * The **Disable new DMA devices when this computer is locked** policy under **Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption** can be set to **Enabled** *or* **Not Configured**. This policy has [known issues](https://support.microsoft.com/en-us/help/4057300/devices-not-working-before-log-on-a-computer-running-windows-10-1709) that may lead to certain built-in devices (network, audio, etc) not working, or a slow system boot, in Windows 10 1709.
 * Any settings that reinforce default behaviors are considered optional for configuration:
     * **Allow Secure Boot for integrity validation** policy under **Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Operating System Drives** can be set to **Enabled** *or* **Not Configured**. 
+* PIN settings are only required when a startup PIN is desired.
 
+### General settings
 **[View the policies as a CSV](./BitLockerPolicies.csv) which is easier to read than the table below and is also searchable.**
 
 | Policy Path | Policy Name | Policy State | Policy Value | Registry Path | Registry Value Name | Registry Data Value | Applicable Client | Applicable Server | Required for Applicable OS |
@@ -42,6 +44,8 @@ NSA Information Assurance recommends using BitLocker settings from the Microsoft
 | Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption | Disable new DMA devices when this computer is locked | Enabled | | HKLM\Software\Policies\Microsoft\FVE | DisableExternalDMAUnderLock | 1 | Windows 10 1703+ | N/A | Yes |
 | Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Operating System Drives | Allow Secure Boot for integrity validation | Enabled *or* Not Configured | | HKLM\Software\Policies\Microsoft\FVE | OSAllowSecureBootForIntegrity *or* not exist | 1 *or* not exist | Windows 8+ | Windows Server 2012+ | No | 
 
+### PIN related settings
+
 Some environments may desire additional protection provided by a BitLocker startup PIN. The settings are considered optional. The following settings may be configured when this scenario is desired.
 
 **[View the policies as a CSV](./BitLockerPINPolicies.csv) which is easier to read than the table below and is also searchable.**
@@ -49,7 +53,7 @@ Some environments may desire additional protection provided by a BitLocker start
 | Policy Path | Policy Name | Policy State | Policy Value | Registry Path | Registry Value Name | Registry Data Value | Applicable Client | Applicable Server | Required for Applicable OS |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Operating System Drives | Allow enhanced PINs for startup | Enabled | | HKLM\Software\Policies\Microsoft\FVE | UseEnhancedPin | 1 | Windows 7+ | Windows Server 2008 R2+ | Yes | 
-| Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Operating System Drives | Configure minimim PIN length for startip | Enabled | 6 *or* larger value  | HKLM\Software\Policies\Microsoft\FVE | MinimumPIN | 6 *or* larger | Windows 7+ | Windows Server 2008 R2+ | Yes |
+| Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Operating System Drives | Configure minimim PIN length for startup | Enabled | 6 *or* larger value  | HKLM\Software\Policies\Microsoft\FVE | MinimumPIN | 6 *or* larger | Windows 7+ | Windows Server 2008 R2+ | Yes |
 |  |  |  |  |  |  |  |  |  |  |
 
 Administrators may need to configure [BitLocker Network Unlock](https://docs.microsoft.com/en-us/windows/security/information-protection/bitlocker/bitlocker-how-to-enable-network-unlock) ensure systems apply updates without requiring a user be physically present to enter a PIN at system boot.
