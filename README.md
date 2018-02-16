@@ -24,7 +24,7 @@ NSA Information Assurance recommends using BitLocker settings from the Microsoft
 * Any settings that reinforce default behaviors are considered optional for configuration:
     * **Allow Secure Boot for integrity validation** policy under **Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Operating System Drives** can be set to **Enabled** *or* **Not Configured**. 
 
-**[View the policies as a CSV](./policies.csv) which is easier to read than the table below and is also searchable.**
+**[View the policies as a CSV](./BitLockerPolicies.csv) which is easier to read than the table below and is also searchable.**
 
 | Policy Path | Policy Name | Policy State | Policy Value | Registry Path | Registry Value Name | Registry Data Value | Applicable Client | Applicable Server | Required for Applicable OS |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | 
@@ -40,14 +40,16 @@ NSA Information Assurance recommends using BitLocker settings from the Microsoft
 | Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption | Choose drive encryption method and cipher strength (Windows 8, Windows Server 2012, Windows 8.1, Windows Server 2012 R2, Windows 10 [Version 1507]) > Select encryption method | Enabled | AES 256-bit | HKLM\Software\Policies\Microsoft\FVE | EncryptionMethodNoDiffuser | 4 | Windows 8 - Windows 10 1507 | Windows Server 2012 - Windows Server 2012 R2 | Yes |
 | Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption | Choose drive encryption method and cipher strength (Windows Vista, Windows Server 2008, Windows 7, Windows Server 2008 R2) > Select encryption method | Enabled | AES 256-bit | HKLM\Software\Policies\Microsoft\FVE | EncryptionMethod | 2 | Windows Vista - Windows 7 | Windows Server 2008 - Windows Server 2008 R2 | Yes | 
 | Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption | Disable new DMA devices when this computer is locked | Enabled | | HKLM\Software\Policies\Microsoft\FVE | DisableExternalDMAUnderLock | 1 | Windows 10 1703+ | N/A | Yes |
-| Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Operating System Drives | Allow enhanced PINs for startup | Enabled | | HKLM\Software\Policies\Microsoft\FVE | UseEnhancedPin | 1 | Windows 7+ | Windows Server 2008 R2+ | Yes | 
 | Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Operating System Drives | Allow Secure Boot for integrity validation | Enabled *or* Not Configured | | HKLM\Software\Policies\Microsoft\FVE | OSAllowSecureBootForIntegrity *or* not exist | 1 *or* not exist | Windows 8+ | Windows Server 2012+ | No | 
-| Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Operating System Drives | Configure minimim PIN length for startip | Enabled | 6 *or* larger value  | HKLM\Software\Policies\Microsoft\FVE | MinimumPIN | 6 *or* larger | Windows 7+ | Windows Server 2008 R2+ | Yes |
 
-Some environments may desire additional protection provided by a BitLocker startup PIN. The settings are considered optional. The following settings may be configured when this scenario is desired:
+Some environments may desire additional protection provided by a BitLocker startup PIN. The settings are considered optional. The following settings may be configured when this scenario is desired.
+
+**[View the policies as a CSV](./BitLockerPINPolicies.csv) which is easier to read than the table below and is also searchable.**
 
 | Policy Path | Policy Name | Policy State | Policy Value | Registry Path | Registry Value Name | Registry Data Value | Applicable Client | Applicable Server | Required for Applicable OS |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Operating System Drives | Allow enhanced PINs for startup | Enabled | | HKLM\Software\Policies\Microsoft\FVE | UseEnhancedPin | 1 | Windows 7+ | Windows Server 2008 R2+ | Yes | 
+| Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Operating System Drives | Configure minimim PIN length for startip | Enabled | 6 *or* larger value  | HKLM\Software\Policies\Microsoft\FVE | MinimumPIN | 6 *or* larger | Windows 7+ | Windows Server 2008 R2+ | Yes |
 |  |  |  |  |  |  |  |  |  |  |
 
 Administrators may need to configure [BitLocker Network Unlock](https://docs.microsoft.com/en-us/windows/security/information-protection/bitlocker/bitlocker-how-to-enable-network-unlock) ensure systems apply updates without requiring a user be physically present to enter a PIN at system boot.
